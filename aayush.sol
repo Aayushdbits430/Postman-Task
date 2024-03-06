@@ -53,6 +53,7 @@ contract Aayushzbank {
         require(amount <= totalDeposits - totalBorrowed, "Insufficient funds available for borrowing");
         borrowedAmount[msg.sender] += amount;
         totalBorrowed += amount;
+        totalDeposits -=amount;
         payable(msg.sender).transfer(amount);
          emit Borrow(msg.sender, amount);
     }
@@ -63,6 +64,7 @@ contract Aayushzbank {
         require(amount <= borrowedAmount[msg.sender], "Cannot repay more than borrowed");
         borrowedAmount[msg.sender] -= amount;
         totalBorrowed -= amount;
+        totalDeposits +=amount;
         emit Repay(msg.sender, amount);
     }
     
